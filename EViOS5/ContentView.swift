@@ -8,14 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+	@State private var  selectedTab = 0
+	
+	init() {
+		UITabBar.appearance().barTintColor = .orange
+	}
+	
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+		 TabView(selection: $selectedTab) {
+			 SearchView()
+				 .tabItem { Label("Search", systemImage: "magnifyingglass") }
+				 .tag(0)
+				 .environmentObject(SearchViewModel())
+			 PopularView()
+				 .tabItem { Label("Top Rated", systemImage: "star.fill") }
+				 .tag(1)
+				 .environmentObject(PopularViewModel())
+		 }
     }
 }
 
